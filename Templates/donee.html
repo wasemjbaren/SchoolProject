@@ -1,0 +1,57 @@
+{%  extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+My Profile
+{% endblock title %}
+
+
+{% block navbar %}
+
+
+{%  include 'navbar.html' %}
+
+{% endblock navbar %}
+
+{% block content %}
+
+<div class="row" style="margin-top:2%;">
+
+    <div class="col-md-3" style="margin-left:4%; text-align: center;">
+        <div class="card card-body" style="border-radius:25px;">
+            <img class="img-fluid img-thumbnail"  src="\static\images\default.jpg" >
+
+            <h3 >{{request.user.first_name}} {{request.user.last_name}}</h3>
+            <a href="#"><h4 >@{{request.user.username}}</h4></a>
+            <p>{{request.user.school_type}}</p>
+            <p>Class {{request.user.class_number}}</p>
+
+            <a href="{% url 'account_settings' %}"> Account Settings</a>
+        </div>
+    </div>
+
+
+  <div class="col-md-8" >
+      <div class="card card-body"style="border-radius:25px; min-height:50%; ">
+            <label  style="margin-left: 2%;"> <h5> <i class="fa fa-graduation-cap"></i> ClassRoom</h5></label>
+
+          <form action="" method="post" >
+                {% csrf_token %}
+
+
+
+            <br>
+            <label style="margin-left:5%;padding:2%;background-color:green;text-align:center;">Congratulations!! You Son/Daughter Have  Been Registered For New Class-Room</label>
+              <br><a class="btn btn-dark" style="margin-left:45%;padding:0.5%;" href="{% url 'profile' %}"> back to your profile </a>
+
+              <br>
+          </form>
+
+       </div>
+
+       <br>
+  </div>
+
+</div>
+
+{% endblock content %}

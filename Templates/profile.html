@@ -1,0 +1,66 @@
+{%  extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+My Profile
+{% endblock title %}
+
+
+{% block navbar %}
+
+
+{%  include 'navbar.html' %}
+
+{% endblock navbar %}
+
+{% block content %}
+
+<div class="row" style="margin-top:2%;">
+
+    <div class="col-md-3" style="margin-left:4%; text-align: center;">
+        <div class="card card-body" style="border-radius:25px;">
+            <img class="img-fluid img-thumbnail"  src="\static\images\default.jpg" >
+
+            <h3 >{{request.user.first_name}} {{request.user.last_name}}</h3>
+            <a href="#"><h4 >@{{request.user.username}}</h4></a>
+            <p>{{request.user.school_type}}</p>
+            <p>Class {{request.user.class_number}}</p>
+
+            <a href="{% url 'account_settings' %}"> Account Settings</a>
+        </div>
+    </div>
+
+
+  <div class="col-md-8" >
+      <div class="card card-body"style="border-radius:25px; min-height:50%; ">
+            <label  style="margin-left: 2%;"> <h5> <i class="fa fa-graduation-cap"></i> ClassRoom  for {{request.user.first_name}} {{request.user.last_name}}</h5></label>
+            <p  style="margin-left: 6.9%; font-size:12px;color:#228B22">  Reserve A Seat For Your Child..</p>
+
+          <form action="" method="post" >
+                {% csrf_token %}
+                {% for clas in object_list %}
+                    <div class="card" style="margin: 2%;">
+                        <div class="card-body">
+                            <p class="card-text">{{clas.class_type}} - {{clas.class_number}}</p>
+                             <p  class="card-text " style="color:#2F4F4F; font-size:13px;" >{{clas.class_description }}</p>
+                            <p  class="card-text"> Class Degree is : {{clas.class_degree}}%</p>
+                            <p  class="card-text" style="font-size:11px;margin-top:-2%;color:#A52A2A">  The remaining places is : {{clas.class_chairs}}</p>
+
+                            <a class="btn btn-success" href="{% url 'done' %}"> Choose </a>
+
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+          </form>
+
+            <br><br>
+
+       </div>
+       <br>
+  </div>
+
+</div>
+
+{% endblock content %}
